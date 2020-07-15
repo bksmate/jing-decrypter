@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jing>
+    <!-- 项目初始化加载的类, 必须要实现JInit接口 -->
+    <!-- 加载日志模块, 必填 -->
+    <init>
+        <!-- 加载顺序 -->
+        <index>1</index>
+        <!-- 类路径 -->
+        <implements>org.jing.core.logger.Log4jInit</implements>
+        <!-- 初始化参数 -->
+        <parameters>
+            <path>config?log4j.properties</path>
+            <level>
+                <!--<gore>ERROR</gore>
+                <equals>SQL</equals>
+                <ignore>SQL</ignore>-->
+            </level>
+            <rootFilter>org.jing.core.logger.log4j.Log4jFilter</rootFilter>
+            <!--使用db包的话, 下面的注释应该取消掉, sql这个日志级别会打印到单独日志里面去, 方便观察-->
+            <!--<extendFilter>
+                <sql>org.jing.core.logger.log4j.impl.Log4jSqlFilter</sql>
+            </extendFilter>-->
+        </parameters>
+    </init>
+</jing>
