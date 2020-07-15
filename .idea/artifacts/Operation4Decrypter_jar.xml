@@ -1,0 +1,21 @@
+<component name="ArtifactManager">
+  <artifact name="Operation4Decrypter:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Operation4Decrypter_jar</output-path>
+    <root id="root">
+      <element id="archive" name="Operation4Decrypter.jar">
+        <element id="module-output" name="Operation4Decrypter" />
+      </element>
+      <element id="file-copy" path="$PROJECT_DIR$/lib/dom4j-2.0.2.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/lib/log4j-1.2.17.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/lib/log4j-api-2.3.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/lib/pkg-jing-core.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/lib/log4j-core-2.3.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../JAR/json/ezmorph-1.0.6.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../JAR/json/commons-lang-2.3.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../JAR/json/json-lib-2.4-jdk15.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../JAR/json/commons-logging-1.1.1.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../JAR/json/commons-beanutils-1.8.0.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../JAR/json/commons-collections-3.2.2-8.0.jar" />
+    </root>
+  </artifact>
+</component>
