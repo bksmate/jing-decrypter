@@ -8,6 +8,7 @@ import org.jing.core.logger.JingLogger;
 import org.jing.core.util.CarrierUtil;
 import org.jing.core.util.FileUtil;
 import org.jing.core.util.GenericUtil;
+import org.jing.core.util.StringUtil;
 import org.jing.decrypter.skeleton2Json.Arknights;
 
 import javax.swing.*;
@@ -62,12 +63,16 @@ public class OpenFileChooser4Skel2Json {
         }
         String doing = cacheCarrier.getString("doing", "N");
         if ("Y".equalsIgnoreCase(doing)) {
-            LOGGER.imp("Duplicate program running, try to close old one or edit the {} file, make [doing] to 'N'", cacheFile);
+            LOGGER.imp("Duplicate program running, try to close old one or edit the {} file, make [doing] to 'N'",
+                cacheFile);
             return;
         }
         String lastDirectoryPath = cacheCarrier.getString(CAHCE_DIR_ARKNIGHTS, "");
         LOGGER.imp("[lastDirectoryPath: {}]", lastDirectoryPath);
         File directory = new File(lastDirectoryPath);
+        if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")) {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        }
         JFileChooser fileChooser = new JFileChooser(directory);
         fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         fileChooser.setMultiSelectionEnabled(true);
@@ -79,6 +84,9 @@ public class OpenFileChooser4Skel2Json {
                 return null;
             }
         });
+        if (StringUtil.isNotEmpty(lastDirectoryPath)) {
+            fileChooser.setSelectedFile(directory);
+        }
         if (JFileChooser.APPROVE_OPTION == fileChooser.showOpenDialog(null)) {
             File[] files = fileChooser.getSelectedFiles();
             int count = GenericUtil.countArray(files);
@@ -152,13 +160,20 @@ public class OpenFileChooser4Skel2Json {
         }
         else {
             LOGGER.imp("Operating file: {}", file.getAbsolutePath());
-            Arknights decrypter = new Arknights(file);
-            decrypter.decrypter();
-            JSONObject resultJson = decrypter.getRetJson();
-            String fileName = file.getName();
-            fileName = fileName.replace(".skel.txt", ".json");
-            fileName = fileName.replace(".skel", ".json");
-            writeFile(outPutDir + File.separator + "output" + File.separator + fileName, resultJson.toString());
+            try {
+                Arknights decrypter = new Arknights(file);
+                decrypter.decrypter();
+                JSONObject resultJson = decrypter.getRetJson();
+                String fileName = file.getName();
+                fileName = fileName.replace(".skel.txt", ".json");
+                fileName = fileName.replace(".skel", ".json");
+                writeFile(outPutDir + File.separator + "output" + File.separator + fileName, resultJson.toString());
+                LOGGER.imp("Success to decrypter file: {}", file.getName());
+            }
+            catch (Exception e) {
+                LOGGER.error(StringUtil.getErrorStack(e));
+                LOGGER.imp("Failed to decrypter file: {}", file.getName());
+            }
         }
     }
 
